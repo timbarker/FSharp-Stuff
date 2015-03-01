@@ -28,7 +28,7 @@ type ``An Empty Queue``() =
     
     [<Test>]
     member x.``Should allow item to be queued``() = 
-        let nonEmptyQueue = Queue.enqueue emptyQueue 42
+        let nonEmptyQueue = Queue.enqueue 42 emptyQueue
         Queue.length nonEmptyQueue |> should equal 1
     
     [<Test>]
@@ -65,7 +65,7 @@ type ``A Non Empty Queue``() =
     
     [<Test>]
     member x.``Should allow item to be queued``() = 
-        let queue = Queue.enqueue nonEmptyQueue 42
+        let queue = Queue.enqueue 42 nonEmptyQueue
         Queue.length queue |> should equal 6
     
     [<Test>]

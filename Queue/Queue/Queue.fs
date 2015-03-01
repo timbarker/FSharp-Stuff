@@ -6,10 +6,10 @@ type queue<'a> =
 
 let empty = EmptyQueue
 
-let enqueue queue x = 
+let enqueue item queue = 
     match queue with
-    | EmptyQueue -> Queue([ x ], [])
-    | Queue(xs, ys) -> Queue(x :: xs, ys)
+    | EmptyQueue -> Queue([ item ], [])
+    | Queue(xs, ys) -> Queue(item :: xs, ys)
 
 let rec dequeue = 
     function 

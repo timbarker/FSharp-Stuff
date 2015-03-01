@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Memoized", "Memoized\Memoized.fsproj", "{BF7BD700-4945-45CE-8FA4-5C209FA94CD6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Memoized.Tests", "Memoized.Tests\Memoized.Tests.fsproj", "{0BC3F897-B1D9-4C6E-B8AB-31FFD66BD3D3}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Queue", "..\Queue\Queue\Queue.fsproj", "{F3D08962-423B-4298-8E7B-4B89C692E83A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF7BD700-4945-45CE-8FA4-5C209FA94CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF7BD700-4945-45CE-8FA4-5C209FA94CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF7BD700-4945-45CE-8FA4-5C209FA94CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF7BD700-4945-45CE-8FA4-5C209FA94CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC3F897-B1D9-4C6E-B8AB-31FFD66BD3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC3F897-B1D9-4C6E-B8AB-31FFD66BD3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC3F897-B1D9-4C6E-B8AB-31FFD66BD3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC3F897-B1D9-4C6E-B8AB-31FFD66BD3D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D08962-423B-4298-8E7B-4B89C692E83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D08962-423B-4298-8E7B-4B89C692E83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D08962-423B-4298-8E7B-4B89C692E83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D08962-423B-4298-8E7B-4B89C692E83A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

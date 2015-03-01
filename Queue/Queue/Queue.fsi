@@ -3,7 +3,7 @@
 type queue<'a>
 
 val empty : 'a queue
-val enqueue : 'a queue -> 'a -> 'a queue
+val enqueue : 'a -> 'a queue -> 'a queue
 val dequeue : 'a queue -> 'a queue * 'a option
 val length : 'a queue -> int
 val ofList : 'a list -> 'a queue
