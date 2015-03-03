@@ -31,16 +31,13 @@ let split getCharInfo partSize singlePartSize (message : string) =
     let totalLength = split |> List.sumBy snd
     if totalLength = singlePartSize then 
         [ split
-          |> Seq.map fst
-          |> Seq.map List.rev
+          |> Seq.map (fst >> List.rev)
           |> Seq.concat
           |> Seq.toArray
           |> toString ]
     else 
         split
-        |> Seq.map fst
-        |> Seq.map List.rev
-        |> Seq.map (Seq.toArray >> toString)
+        |> Seq.map (fst >> List.rev >> List.toArray >> toString)
         |> Seq.toList
 
 let splitGSM = split getCharacterInfoGSM 153 160
