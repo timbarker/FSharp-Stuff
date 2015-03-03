@@ -9,27 +9,27 @@ let getCharacterInfoGSM char =
 
 let getCharacterInfoUnicode char = 
     match char with
-    | c when Char.IsHighSurrogate(c) -> (c, 4)
-    | c when Char.IsLowSurrogate(c) -> (c, 0)
-    | c -> (c, 2)
+    | _ when Char.IsHighSurrogate(char) -> (char, 4)
+    | _ when Char.IsLowSurrogate(char) -> (char, 0)
+    | _ -> (char, 2)
 
-let splitter partLength (state : (char list * int) list) (char : char * int) = 
-    match state, char with
+let splitter partLength state charInfo = 
+    match state, charInfo with
     | (part, partSz) :: parts, (char, charSz) when partSz + charSz <= partLength -> 
         (char :: part, partSz + charSz) :: parts
     | parts, (char, charSz) -> ([ char ], charSz) :: parts
 
 let toString (arr : char array) = new String(arr)
 
-let split getCharInfo partSize singlePartSize (message: string) = 
+let split getCharInfo partSize singlePartSize (message : string) = 
     let split = 
         message
         |> Seq.map getCharInfo
         |> Seq.fold (splitter partSize) [ ([], 0) ]
         |> List.rev
     
-    let effectiveTotalLength = split |> List.sumBy snd
-    if effectiveTotalLength = singlePartSize then 
+    let totalLength = split |> List.sumBy snd
+    if totalLength = singlePartSize then 
         [ split
           |> Seq.map fst
           |> Seq.map List.rev
@@ -45,6 +45,5 @@ let split getCharInfo partSize singlePartSize (message: string) =
 
 let splitGSM = split getCharacterInfoGSM 153 160
 let splitUnicode = split getCharacterInfoUnicode 134 140
-
 let truncateGSM = split getCharacterInfoGSM 160 160 >> List.head
 let truncateUnicode = split getCharacterInfoUnicode 140 140 >> List.head
