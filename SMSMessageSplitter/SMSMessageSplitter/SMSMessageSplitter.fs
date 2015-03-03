@@ -9,9 +9,9 @@ let getCharacterInfoGSM char =
 
 let getCharacterInfoUnicode char = 
     match char with
-    | _ when Char.IsHighSurrogate(char) -> (char, 4)
+    | _ when Char.IsHighSurrogate(char) -> (char, 2)
     | _ when Char.IsLowSurrogate(char) -> (char, 0)
-    | _ -> (char, 2)
+    | _ -> (char, 1)
 
 let splitter partLength state charInfo = 
     match state, charInfo with
@@ -44,6 +44,6 @@ let split getCharInfo partSize singlePartSize (message : string) =
         |> Seq.toList
 
 let splitGSM = split getCharacterInfoGSM 153 160
-let splitUnicode = split getCharacterInfoUnicode 134 140
+let splitUnicode = split getCharacterInfoUnicode 67 70
 let truncateGSM = split getCharacterInfoGSM 160 160 >> List.head
-let truncateUnicode = split getCharacterInfoUnicode 140 140 >> List.head
+let truncateUnicode = split getCharacterInfoUnicode 70 70 >> List.head
