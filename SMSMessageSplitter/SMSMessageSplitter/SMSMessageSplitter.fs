@@ -21,6 +21,8 @@ let splitter partLength state charInfo =
 
 let toString (arr : char array) = new String(arr)
 
+let partToChars = fst >> List.rev
+
 let split getCharInfo partSize singlePartSize (message : string) = 
     let split = 
         message
@@ -31,14 +33,12 @@ let split getCharInfo partSize singlePartSize (message : string) =
     let totalLength = split |> List.sumBy snd
     if totalLength = singlePartSize then 
         [ split
-          |> Seq.map (fst >> List.rev)
+          |> Seq.map partToChars
           |> Seq.concat
           |> Seq.toArray
           |> toString ]
     else 
-        split
-        |> Seq.map (fst >> List.rev >> List.toArray >> toString)
-        |> Seq.toList
+        split |> List.map (partToChars >> List.toArray >> toString)
 
 let splitGSM = split getCharacterInfoGSM 153 160
 let splitUnicode = split getCharacterInfoUnicode 67 70
