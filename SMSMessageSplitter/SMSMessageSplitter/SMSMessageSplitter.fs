@@ -19,7 +19,7 @@ let splitter partLength state charInfo =
         (char :: part, partSz + charSz) :: parts
     | parts, (char, charSz) -> ([ char ], charSz) :: parts
 
-let toString (arr : char array) = new String(arr)
+let toString = Seq.map string >> String.concat ""
 
 let partToChars = fst >> List.rev
 
@@ -35,10 +35,9 @@ let split getCharInfo partSize singlePartSize (message : string) =
         [ split
           |> Seq.map partToChars
           |> Seq.concat
-          |> Seq.toArray
           |> toString ]
     else 
-        split |> List.map (partToChars >> List.toArray >> toString)
+        split |> List.map (partToChars >> toString)
 
 let splitGSM = split getCharacterInfoGSM 153 160
 let splitUnicode = split getCharacterInfoUnicode 67 70

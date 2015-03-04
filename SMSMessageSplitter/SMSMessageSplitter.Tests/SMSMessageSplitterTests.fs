@@ -6,6 +6,7 @@ open FsUnit
 [<TestFixture>]
 type ``A GSM Single part splitter``() = 
     
+    [<TestCase(153)>]
     [<TestCase(154)>]
     [<TestCase(160)>]
     member x.``Should handle standard characters``(len) = 
@@ -34,11 +35,11 @@ type ``A GSM multipart splitter``() =
     
     [<Test>]
     member x.``Should handle standard characters``() = 
-        let message = String.replicate 154 "a"
+        let message = String.replicate 161 "a"
         let splits = SMSMessageSplitter.splitGSM message
         splits |> should haveLength 2
         splits |> should equal [ String.replicate 153 "a"
-                                 "a" ]
+                                 String.replicate 8 "a" ]
     
     [<TestCase("|")>]
     [<TestCase("^")>]
@@ -50,11 +51,11 @@ type ``A GSM multipart splitter``() =
     [<TestCase("]")>]
     [<TestCase("\\")>]
     member x.``Should handle extended characters`` (extendedChar) = 
-        let message = String.replicate 77 extendedChar
+        let message = String.replicate 81 extendedChar
         let splits = SMSMessageSplitter.splitGSM message
         splits |> should haveLength 2
         splits |> should equal [ String.replicate 76 extendedChar
-                                 extendedChar ]
+                                 String.replicate 5 extendedChar ]
     
     [<Test>]
     member x.``Should not let last character be escape character``() = 
@@ -67,12 +68,14 @@ type ``A GSM multipart splitter``() =
 [<TestFixture>]
 type ``A Unicode single part splitter``() = 
     
-    [<Test>]
-    member x.``Should handle single code unit characters``() = 
-        let message = String.replicate 70 "á"
+    [<TestCase(67)>]
+    [<TestCase(68)>]
+    [<TestCase(70)>]    
+    member x.``Should handle single code unit characters``(len) = 
+        let message = String.replicate len "á"
         let splits = SMSMessageSplitter.splitUnicode message
         splits |> should haveLength 1
-        splits |> should equal [ String.replicate 70 "á" ]
+        splits |> should equal [ String.replicate len "á" ]
     
     [<Test>]
     member x.``Should handle double code unit characters``() = 
