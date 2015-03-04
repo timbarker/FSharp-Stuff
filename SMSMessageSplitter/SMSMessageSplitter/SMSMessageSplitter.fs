@@ -31,7 +31,7 @@ let split getCharInfo partSize singlePartSize (message : string) =
         |> List.rev
     
     let totalLength = split |> List.sumBy snd
-    if totalLength = singlePartSize then 
+    if totalLength <= singlePartSize then 
         [ split
           |> Seq.map partToChars
           |> Seq.concat

@@ -6,12 +6,13 @@ open FsUnit
 [<TestFixture>]
 type ``A GSM Single part splitter``() = 
     
-    [<Test>]
-    member x.``Should handle standard characters``() = 
-        let message = String.replicate 160 "a"
+    [<TestCase(154)>]
+    [<TestCase(160)>]
+    member x.``Should handle standard characters``(len) = 
+        let message = String.replicate len "a"
         let splits = SMSMessageSplitter.splitGSM message
         splits |> should haveLength 1
-        splits |> should equal [ String.replicate 160 "a" ]
+        splits |> should equal [ String.replicate len "a" ]
     
     [<TestCase("|")>]
     [<TestCase("^")>]
