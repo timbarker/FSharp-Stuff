@@ -1,9 +1,11 @@
 ﻿module SudokuSolver
 
+let toCoordinate idx = (idx % 9, idx / 9)
+
 let toMap (sudoku : int list list) = 
     sudoku
     |> Seq.concat
-    |> Seq.mapi (fun idx item -> ((idx % 9, idx / 9), item))
+    |> Seq.mapi (fun idx item -> (toCoordinate idx, item))
     |> Seq.filter (fun (_, item) -> item <> 0)
     |> Map.ofSeq
 
@@ -18,7 +20,7 @@ let toGrid sudoku =
     }
     |> Seq.toList
 
-let canAddNumber (col, row) number sudoku = 
+let canAdd number (col, row) sudoku = 
     let canAddToCol = 
         lazy (sudoku
               |> Map.filter (fun (c, _) _ -> c = col)
@@ -36,19 +38,20 @@ let canAddNumber (col, row) number sudoku =
     
     canAddToCol.Value && canAddToRow.Value && canAddToSquare.Value
 
-let rec solveAt idx sudoku = 
-    let col = idx % 9
-    let row = idx / 9
-    if idx = 81 then Some sudoku
-    else if Map.containsKey (col, row) sudoku then solveAt (idx + 1) sudoku
+let rec solveAt index sudoku = 
+    if index = 81 then Some sudoku
     else 
-        let trySolveWith num = 
-            if canAddNumber (col, row) num sudoku then solveAt (idx + 1) (Map.add (col, row) num sudoku)
-            else None
-        seq { 1..9 } |> Seq.tryPick trySolveWith
+        let coordinate = toCoordinate index
+        if Map.containsKey coordinate sudoku then solveAt (index + 1) sudoku
+        else 
+            let trySolveUsing number = 
+                if canAdd number coordinate sudoku then solveAt (index + 1) (Map.add coordinate number sudoku)
+                else None
+            List.tryPick trySolveUsing [ 1..9 ]
 
 let solve (sudoku : int list list) = 
-    let solved = solveAt 0 (toMap sudoku)
-    match solved with
+    match sudoku
+          |> toMap
+          |> solveAt 0 with
     | Some solution -> toGrid solution
-    | None -> failwith "Unsolvable Sudoku"
+    | None -> invalidArg "sudoku" "Unsolvable Sudoku"

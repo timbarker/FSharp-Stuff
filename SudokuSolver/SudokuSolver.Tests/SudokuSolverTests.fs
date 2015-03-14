@@ -141,5 +141,5 @@ type ``An Invalid Sudoku When Solving``() =
           [ 5; 0; 3; 0; 0; 8; 0; 0; 0 ]
           [ 0; 0; 7; 0; 5; 2; 8; 6; 4 ] ]
     
-    [<Test; ExpectedException(ExpectedMessage = "Unsolvable Sudoku")>]
+    [<Test; ExpectedException(typeof<System.ArgumentException>, ExpectedMessage = "Unsolvable Sudoku\r\nParameter name: sudoku")>]
     member x.``Should fail with an exeption``() = SudokuSolver.solve invalidSudoku |> ignore
