@@ -6,3 +6,4 @@ Random bits of F# that might be interesting
 2. A queue implementation
 3. A simple in memory key value store built with an F# actor
 4. A function cache 
+5. A Sudoku solver
