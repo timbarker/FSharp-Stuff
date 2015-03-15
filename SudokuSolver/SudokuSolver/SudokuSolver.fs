@@ -1,11 +1,11 @@
 ﻿module SudokuSolver
 
-let toCoordinate idx = (idx % 9, idx / 9)
+let toCoordinate index = (index % 9, index / 9)
 
-let toMap (sudoku : int list list) = 
+let toMap sudoku = 
     sudoku
     |> Seq.concat
-    |> Seq.mapi (fun idx item -> (toCoordinate idx, item))
+    |> Seq.mapi (fun index item -> (toCoordinate index, item))
     |> Seq.filter (fun (_, item) -> item <> 0)
     |> Map.ofSeq
 
