@@ -7,3 +7,4 @@ Random bits of F# that might be interesting
 3. A simple in memory key value store built with an F# actor
 4. A function cache 
 5. A Sudoku solver
+6. A result monad (similar to either monad"
