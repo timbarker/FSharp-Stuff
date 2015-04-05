@@ -21,22 +21,15 @@ let toGrid sudoku =
     |> Seq.toList
 
 let canAdd number (col, row) sudoku = 
-    let canAddToCol = 
-        lazy (sudoku
-              |> Map.filter (fun (c, _) _ -> c = col)
-              |> Map.forall (fun _ n -> n <> number))
+    let canAddWith filter = 
+        sudoku
+        |> Map.filter (fun coord _ -> filter coord)
+        |> Map.forall (fun _ n -> n <> number)
     
-    let canAddToRow = 
-        lazy (sudoku
-              |> Map.filter (fun (_, r) _ -> r = row)
-              |> Map.forall (fun _ n -> n <> number))
-    
-    let canAddToSquare = 
-        lazy (sudoku
-              |> Map.filter (fun (c, r) _ -> c / 3 = col / 3 && r / 3 = row / 3)
-              |> Map.forall (fun _ n -> n <> number))
-    
-    canAddToCol.Value && canAddToRow.Value && canAddToSquare.Value
+    let colFilter (c, _) = c = col
+    let rowFilter (_, r) = r = row
+    let squareFilter (c, r) = c / 3 = col / 3 && r / 3 = row / 3
+    (canAddWith colFilter) && (canAddWith rowFilter) && (canAddWith squareFilter)
 
 let rec solveAt index sudoku = 
     if index = 81 then Some sudoku
