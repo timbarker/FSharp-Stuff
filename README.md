@@ -8,3 +8,4 @@ Random bits of F# that might be interesting
 4. A function cache 
 5. A Sudoku solver
 6. A result monad (similar to either monad)
+7. Some simple kata problems and solutions
